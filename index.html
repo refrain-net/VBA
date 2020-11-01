@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang = 'ja'>
+  <head>
+    <meta charset = 'utf-8' />
+    <title>ReadMe</title>
+    <link href = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/vs.min.css' rel = 'stylesheet' />
+  </head>
+  <body>
+    <h1>VBA Libs</h1>
+    <ol>
+      <li><a href = '#Description'>Description</a></li>
+    </ol>
+    <h2 id = 'Description'>Description</h2>
+    <p>Excel VBAで使用可能な、配列クラスです。<br /><!--
+    -->標準の配列と異なり、メソッドやプロパティにより操作ができます。<br /><!--
+    -->メソッドなどはJavaやJavaScriptを踏襲して実装しています。<br /><!--
+    -->使い方は**Demo**を確認してください。</p>
+    <h2 id = 'Demo'>Demo</h2>
+    <details>
+      <summary>vbArray</summary>
+      <pre><code>Public Sub Main()
+  Dim Arr As vbArray
+  Set Arr = New vbArray ' vbArrayクラスのインスタンスを作成する
+
+  Call Arr.Add(1).Add("A").Add(False) ' 配列に値を追加する
+  Arr(2) = True ' 配列の値を変更する
+  Call Arr.ForEach("ForEachCallback") ' 配列の全ての値でForEachCallbackを実行する
+End Sub
+
+' vbArray#ForEachのコールバック関数
+' CurrentValue...配列の値
+' Index..........値の順番
+' Self...........vbArrayオブジェクト
+Public Sub ForEachCallback(ByVal CurrentValue As Variant, _
+                    ByVal Index As Integer, _
+                    ByVal Self As vbArray)
+  Call Debug.Print(CurrentValue)
+End Sub</code></pre>
+    </details>
+<!--
+## Requirement
+
+## Usage
+
+## Install
+
+## Contribution
+
+## Licence
+
+## Author
+-->
+    <script src = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js'></script>
+    <script>
+hljs.initHighlightingOnLoad();
+    </script>
+  </body>
+</html>
