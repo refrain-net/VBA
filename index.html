@@ -7,18 +7,10 @@
   </head>
   <body>
     <h1>VBA Libs</h1>
-    <ol>
-      <li><a href = '#Description'>Description</a></li>
-    </ol>
-    <h2 id = 'Description'>Description</h2>
-    <p>Excel VBAで使用可能なクラスです。<br /><!--
-    -->それぞれの使い方などは、<a href = '#demo'>Demo</a>を確認してください。</p>
-    <h2 id = 'Demo'>Demo</h2>
     <details>
       <summary>vbArray</summary>
-      <p>Excel VBAで使用可能な、配列クラスです。<br /><!--
-      -->標準の配列と異なり、メソッドやプロパティにより操作ができます。<br /><!--
-      -->メソッドなどはJavaやJavaScriptを踏襲して実装しています。</p>
+      <p><code>vbArray</code>は、標準的な配列クラスです。<br /><!--
+      -->VBA標準の配列と異なり、メソッドやプロパティを使用することでより直感的に操作できます。</p>
       <pre><code class = 'language-visual-basic'>Public Sub Main()
   Dim Arr As vbArray
   Set Arr = New vbArray ' vbArrayクラスのインスタンスを作成する
@@ -26,31 +18,55 @@
   Call Arr.Add(1).Add("A").Add(False) ' 配列に値を追加する
   Arr(2) = True ' 配列の値を変更する
   Call Arr.ForEach("ForEachCallback") ' 配列の全ての値でForEachCallbackを実行する
+  ' 1
+  ' A
+  ' True
 End Sub
 
-' vbArray#ForEachのコールバック関数
+' vbLinkArray#ForEachのコールバック関数
 ' CurrentValue...配列の値
 ' Index..........値の順番
 ' Self...........vbArrayオブジェクト
 Public Sub ForEachCallback(ByVal CurrentValue As Variant, _
                     ByVal Index As Integer, _
                     ByVal Self As vbArray)
-  Call Debug.Print(CurrentValue)
+  Call Debug.Print CurrentValue
 End Sub</code></pre>
     </details>
-<!--
-## Requirement
+    <details>
+      <summary>vbLinkArray</summary>
+      <p><code>vbLinkArray</code>は、Master/Slaveを設定することでMaster側で実行した処理がSlave側にも実行される配列クラスです。<br /><!--
+      -->なお、自己参照による無限循環を防ぐため、Master/Slaveは以下の関係を持つことができません。<ol>
+      <li>Slave = Master</li>
+      <li>Master1 -> Master2 -> Master1</li>
+      </ol></p>
+      <pre><code class = 'language-visual-basic'>Public Sub Main()
+  Dim Arr1 As vbLinkArray
+  Dim Arr2 As vbLinkArray
+  Set Arr1 = New vbLinkArray ' vbLinkArrayクラスのインスタンスを作成する
+  Set Arr2 = New vbLinkArray
 
-## Usage
+  Call Arr1.Add(1).Add("A").Add(False) ' 配列に値を追加する
+  Arr1(2) = True ' 配列の値を変更する
+  Call Arr1.ForEach("ForEachCallback") ' 配列の全ての値でForEachCallbackを実行する
+  ' 1
+  ' A
+  ' True
+  ' 1
+  ' A
+  ' True
+End Sub
 
-## Install
-
-## Contribution
-
-## Licence
-
-## Author
--->
+' vbArray#ForEachのコールバック関数
+' CurrentValue...配列の値
+' Index..........値の順番
+' Self...........vbLinkArrayオブジェクト
+Public Sub ForEachCallback(ByVal CurrentValue As Variant, _
+                    ByVal Index As Integer, _
+                    ByVal Self As vbLinkArray)
+  Debug.Print CurrentValue
+End Sub</code></pre>
+    </details>
     <script src = 'prism.js'></script>
   </body>
 </html>
