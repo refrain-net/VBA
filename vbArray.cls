@@ -1,12 +1,12 @@
 VERSION 1.0 CLASS
 BEGIN
-  MultiUse = -1  'True
+  MultiUse = -1
 END
-Attribute VB_Name = "vbArray"
-Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
-Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Name = "vbArray"
+Attribute VB_PredeclaredId = False
 Option Explicit
 Option Base 0
 
@@ -174,19 +174,6 @@ Attribute ForEach.VB_Description = "配列の全ての値でコールバック�
     Wend
 End Sub
 
-Public Sub FromString(ByVal Value As String)
-Attribute FromString.VB_Description = "文字列を配列に変換する"
-    If Not Value Like "[[]*[]]" Then
-        Err.Raise SYNTAX_ERROR
-        Exit Sub
-    End If
-    Call Clear
-    Dim CurrentValue As Variant
-    For Each CurrentValue In Split(Replace(Replace(Value, "[ ", ""), " ]", ""), ", ")
-        Call Add(CurrentValue)
-    Next CurrentValue
-End Sub
-
 Public Sub FromRange(ByVal Value As Range)
 Attribute FromString.VB_Description = "セル範囲を配列に変換する"
     Call Clear
@@ -238,6 +225,15 @@ Attribute Map.VB_Description = "配列の全ての値をコールバックの返
         CurrentIndex = CurrentIndex + 1
     Wend
     Set Map = Me
+End Function
+
+Public Function Parse(ParamArray Values() As Variant) As vbArray
+Attribute Reduce.VB_Description = "配列を空にし、引数の値を全て追加する"
+    Dim CurrentValue As Variant
+    For Each CurrentValue In Values
+        Call Add(CurrentValue)
+    Next CurrentValue
+    Set Parse = Me
 End Function
 
 Public Function Reduce(ByVal Callback As String, _
